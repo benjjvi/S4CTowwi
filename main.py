@@ -129,25 +129,27 @@ def tweet(individual_story):
     if weight > 0.125 or weight < -0.9:
         print("OWOifying Story.")
         owo_headline = owo.substitute(individual_story["title"])
-        chosen_prefix = owo.PREFIXES[random.randint(0,len(owo.PREFIXES)-1)]
+        chosen_prefix = owo.PREFIXES[random.randint(0, len(owo.PREFIXES) - 1)]
 
-        full_owo_text = f"{chosen_prefix}{owo_headline}. https://newyddion.s4c.cymru/article/{individual_story["id"]}"
+        full_owo_text = f"{chosen_prefix}{owo_headline}. https://newyddion.s4c.cymru/article/{individual_story['id']}"
         print("===")
         print(full_owo_text)
         print("===")
 
-        client = twikit.client.Client(language='en-GB')
+        client = twikit.client.Client(language="en-GB")
         with open("cookies", "r") as file:
             cookies = file.read()
         if cookies == "":
-            client.login(auth_info_1=CREDENTIALS["twitter"]["username"], auth_info_2=CREDENTIALS["twitter"]["email"], password=CREDENTIALS["twitter"]["password"])
+            client.login(
+                auth_info_1=CREDENTIALS["twitter"]["username"],
+                auth_info_2=CREDENTIALS["twitter"]["email"],
+                password=CREDENTIALS["twitter"]["password"],
+            )
             client.save_cookies("cookies")
         else:
             client.load_cookies("cookies")
 
         client.create_tweet(text=full_owo_text)
-
-
 
 
 # run loop
@@ -166,4 +168,4 @@ while True:
     for item in unseen_articles:
         tweet(item)
 
-    time.sleep(60*30) #wait 30 minutes per cycle.
+    time.sleep(60 * 30)  # wait 30 minutes per cycle.
