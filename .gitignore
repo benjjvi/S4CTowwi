@@ -1,1 +1,3 @@
 debug/*
+credentials.py
+push.sh

@@ -2,5 +2,5 @@ text-to-owo==2.0.1
 requests==2.31.0
 beautifulsoup4==4.12.3
 vaderSentiment==3.3.2
-googletrans==4.0.0-rc1
 twikit==1.7.5
+translate==3.6.1
