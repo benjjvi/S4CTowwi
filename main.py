@@ -1,6 +1,8 @@
 import json
+import random
 import warnings
 
+import owo
 import requests
 import twikit
 from bs4 import BeautifulSoup
@@ -11,7 +13,6 @@ from credentials import CREDENTIALS
 
 
 def analyze_headline(title):
-    print(f"Analysing {title}")
     translator = Translator(
         provider="mymemory",
         to_lang="en",
@@ -21,8 +22,6 @@ def analyze_headline(title):
 
     # Translate title from Welsh to English
     translated_title = translator.translate(title)
-    print(title)
-    print(translated_title)
 
     sentiment = SentimentIntensityAnalyzer()
     analysis = sentiment.polarity_scores(translated_title)
@@ -125,6 +124,19 @@ def tweet(individual_story):
     weight = analyze_headline(individual_story["title"])
     print(individual_story)
     print(weight)
+
+    if weight > -0.2 or weight < -0.7:
+        print("OWOifying Story.")
+        owo_headline = owo.substitute(individual_story["title"])
+        chosen_prefix = owo.PREFIXES[random.randint(0, len(owo.PREFIXES) - 1)]
+
+        full_owo_text = f"{chosen_prefix}{owo_headline}"
+        print("===")
+        print(full_owo_text)
+        print("===")
+
+        continue
+        client = twikit.client.Client(language="en-GB")
 
 
 # run loop
